@@ -1,68 +1,55 @@
 #include "main.h"
-#include <unistd.h>
 
-int _putchar(char c)
-{
-    return write(1, &c, 1);
-}
-
+/**
+ * _printf - Custom printf function to output formatted data
+ * @format: Format string containing the directives
+ * 
+ * Return: Number of characters printed
+ */
 int _printf(const char *format, ...)
 {
+    int count = 0;
     va_list args;
-    int printed_chars = 0;
-    char *str_arg;
-    char char_arg;
-
     va_start(args, format);
 
     while (*format)
     {
-        if (*format != '%')
+        if (*format == '%')
         {
-            _putchar(*format);
-            printed_chars++;
+            format++; /* Move to the next character to check the specifier */
+            switch (*format)
+            {
+                case 'c':
+                    count += putchar(va_arg(args, int)); /* Print character */
+                    break;
+                case 's':
+                    {
+                        char *str = va_arg(args, char *);
+                        if (str)
+                        {
+                            while (*str)
+                            {
+                                count += putchar(*str++);
+                            }
+                        }
+                    }
+                    break;
+                case '%':
+                    count += putchar('%'); /* Print percent symbol */
+                    break;
+                default:
+                    count += putchar('%');
+                    count += putchar(*format); /* Print as is for unrecognized specifiers */
+            }
         }
         else
         {
-            format++;
-
-            switch (*format)
-            {
-            case 'c':
-                char_arg = va_arg(args, int);
-                _putchar(char_arg);
-                printed_chars++;
-                break;
-
-            case 's':
-                str_arg = va_arg(args, char *);
-                if (str_arg == NULL)
-                    str_arg = "(null)";
-
-                while (*str_arg)
-                {
-                    _putchar(*str_arg);
-                    printed_chars++;
-                    str_arg++;
-                }
-                break;
-
-            case '%':
-                _putchar('%');
-                printed_chars++;
-                break;
-
-            default:
-                _putchar('%');
-                _putchar(*format);
-                printed_chars += 2;
-                break;
-            }
+            count += putchar(*format); /* Print non-format characters as is */
         }
         format++;
     }
 
     va_end(args);
-
-    return printed_chars;
+    return count;
 }
+
