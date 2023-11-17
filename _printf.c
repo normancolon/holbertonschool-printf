@@ -1,55 +1,68 @@
 #include "main.h"
+#include <unistd.h>
 
-/**
- * _printf - Custom printf function to output formatted data
- * @format: Format string containing the directives
- * 
- * Return: Number of characters printed
- */
+int _putchar(char c)
+{
+    return write(1, &c, 1);
+}
+
 int _printf(const char *format, ...)
 {
-    int count = 0;
     va_list args;
+    int printed_chars = 0;
+    char *str_arg;
+    char char_arg;
+
     va_start(args, format);
 
     while (*format)
     {
-        if (*format == '%')
+        if (*format != '%')
         {
-            format++; /* Move to the next character to check the specifier */
-            switch (*format)
-            {
-                case 'c':
-                    count += putchar(va_arg(args, int)); /* Print character */
-                    break;
-                case 's':
-                    {
-                        char *str = va_arg(args, char *);
-                        if (str)
-                        {
-                            while (*str)
-                            {
-                                count += putchar(*str++);
-                            }
-                        }
-                    }
-                    break;
-                case '%':
-                    count += putchar('%'); /* Print percent symbol */
-                    break;
-                default:
-                    count += putchar('%');
-                    count += putchar(*format); /* Print as is for unrecognized specifiers */
-            }
+            _putchar(*format);
+            printed_chars++;
         }
         else
         {
-            count += putchar(*format); /* Print non-format characters as is */
+            format++;
+
+            switch (*format)
+            {
+            case 'c':
+                char_arg = va_arg(args, int);
+                _putchar(char_arg);
+                printed_chars++;
+                break;
+
+            case 's':
+                str_arg = va_arg(args, char *);
+                if (str_arg == NULL)
+                    str_arg = "(null)";
+
+                while (*str_arg)
+                {
+                    _putchar(*str_arg);
+                    printed_chars++;
+                    str_arg++;
+                }
+                break;
+
+            case '%':
+                _putchar('%');
+                printed_chars++;
+                break;
+
+            default:
+                _putchar('%');
+                _putchar(*format);
+                printed_chars += 2;
+                break;
+            }
         }
         format++;
     }
 
     va_end(args);
-    return count;
-}
 
+    return printed_chars;
+}
