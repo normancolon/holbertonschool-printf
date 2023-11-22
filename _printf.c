@@ -1,5 +1,6 @@
 #include "main.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 int _putchar(char c)
 {
@@ -12,6 +13,9 @@ int _printf(const char *format, ...)
     int printed_chars = 0;
     char *str_arg;
     char char_arg;
+    int int_arg;
+    char *int_str;
+    char *p;
 
     va_start(args, format);
 
@@ -36,18 +40,27 @@ int _printf(const char *format, ...)
                 str_arg = va_arg(args, char *);
                 if (str_arg == NULL)
                     str_arg = "(null)";
-                while (*str_arg)
+                for (p = str_arg; *p; p++)
                 {
-                    _putchar(*str_arg);
+                    _putchar(*p);
                     printed_chars++;
-                    str_arg++;
                 }
+                break;
+            case 'd':
+            case 'i':
+                int_arg = va_arg(args, int);
+                int_str = inToString(int_arg); 
+                for (p = int_str; *p; p++) 
+                {
+                    _putchar(*p);
+                    printed_chars++;
+                }
+                free(int_str);
                 break;
             case '%':
                 _putchar('%');
                 printed_chars++;
                 break;
-
             default:
                 _putchar('%');
                 _putchar(*format);
@@ -57,6 +70,8 @@ int _printf(const char *format, ...)
         }
         format++;
     }
+
     va_end(args);
     return printed_chars;
 }
+
