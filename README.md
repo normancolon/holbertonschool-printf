@@ -1,76 +1,55 @@
 # holbertonschool-printf
-# Custom printf Implementation in C
+## Custom printf Implementation in C
 
-This project is an implementation of the `printf` standard function in C. The `printf` function writes formatted output to the standard output (stdout) and takes a format string and a variable number of arguments. Inside the implementation, the function parses the format string and replaces format specifiers with corresponding values.
+This project is an implementation of the `printf` standard function in C. The `printf` function writes formatted output to the standard output (stdout) and takes a format string and a variable number of arguments. Our implementation aims to mimic the standard `printf` function's behavior, handling various format specifiers and outputting formatted strings.
 
-## Code Overview
+### Code Overview
 
 - `main.h`: Header file containing function declarations and necessary includes.
+- `_putchar.c`: Contains the custom `_putchar` function for writing a character to the standard output.
+- `_printf.c`: The core implementation of the custom `_printf` function, which mimics the standard `printf` function.
 
-- `_putchar.c`: Contains the custom `_putchar` function that writes a character to the standard output.
+### How `_printf` Works
 
-- `_printf.c`: Implementation of the custom `_printf` function that mimics the behavior of the standard `printf` function.
+- `_printf` accepts a format string and a variable number of arguments.
+- It utilizes a `va_list` to manage the variable arguments.
+- The function processes each character in the format string.
+- Characters that are not `%` are written to standard output using `_putchar`, incrementing the `printed_chars` counter.
+- For `%` characters, the function identifies and processes the following format specifier.
+- Supported specifiers include `%c` (character), `%s` (string), and `%%` (percent symbol).
+- For `%c`, it prints a character; for `%s`, it prints a string or `"(null)"` if the string is NULL.
+- `%%` results in a literal percent symbol.
+- Unrecognized specifiers lead to printing the `%` character followed by the unrecognized character.
+- The function returns the total count of printed characters.
 
-## How `_printf` Works
+### Usage
 
-- The `_printf` function takes a format string and a variable number of arguments.
+1. Include `main.h` in your C files.
+2. Use `_printf` similarly to `printf` with a format string and additional arguments.
+3. The function outputs formatted text to standard output.
 
-- It uses a `va_list` to handle the variable arguments.
-
-- The function iterates through each character in the format string.
-
-- If the character is not `%`, it is directly written to the standard output using the `_putchar` function, and the `printed_chars` counter is incremented.
-
-- If the character is `%`, the function checks the next character to determine the format specifier.
-
-- It supports format specifiers `%c` (character), `%s` (string), and `%%` (literal percent symbol).
-
-- For `%c`, it retrieves a character argument from the variable arguments and prints it.
-
-- For `%s`, it retrieves a string argument from the variable arguments and prints it. If the string is `NULL`, it prints `"(null)"`.
-
-- For `%%`, it simply prints a percent symbol.
-
-- If the character is not a recognized format specifier, it prints a percent symbol followed by the character.
-
-- The `printed_chars` counter keeps track of the total characters printed.
-
-- Finally, the function returns the total number of characters printed.
-
-## Usage
-
-1. Include the `main.h` header in your C file.
-
-2. Call the `_printf` function with a format string and any additional arguments.
-
-3. The function will print the formatted output to the standard output.
-
-## Supported Specifiers
+### Supported Specifiers
 
 - `%c`: Print a character.
 - `%s`: Print a string.
 - `%%`: Print a percent symbol.
 
-##  Contributors
-The project contributors are:
+### Contributors
 
-Norman Colon Cruz
+- Norman Colon Cruz
 
+### Flowchart
 
-Flowchart
-https://imgur.com/x7idRiC
+[Flowchart of the _printf function](https://imgur.com/x7idRiC)
 
-## Example
+### Example
 
 ```c
 #include "main.h"
 
-int main(void)
-{
+int main(void) {
     int len;
     len = _printf("Hello, %s! My favorite number is %d.\n", "world", 42);
-    return (0);
+    return 0;
 }
-
-
 
