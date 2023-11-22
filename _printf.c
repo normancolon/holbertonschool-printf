@@ -3,15 +3,18 @@
 
 int _putchar(char c)
 {
-    return write(1, &c, 1);
+    return (write(1, &c, 1));
 }
+
 int _printf(const char *format, ...)
 {
     va_list args;
     int printed_chars = 0;
     char *str_arg;
     char char_arg;
+
     va_start(args, format);
+
     while (*format)
     {
         if (*format != '%')
@@ -40,7 +43,6 @@ int _printf(const char *format, ...)
                     str_arg++;
                 }
                 break;
-
             case '%':
                 _putchar('%');
                 printed_chars++;
