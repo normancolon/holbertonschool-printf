@@ -51,6 +51,15 @@ This project is an implementation of the `printf` standard function in C. The `p
 - `%s`: Print a string.
 - `%%`: Print a percent symbol.
 
+##  Contributors
+The project contributors are:
+
+Norman Colon Cruz
+
+
+Flowchart
+https://imgur.com/x7idRiC
+
 ## Example
 
 ```c
@@ -63,11 +72,5 @@ int main(void)
     return (0);
 }
 
-Contributors
-The project contributors are:
-
-Norman Colon Cruz
 
 
-Flowchart
-https://imgur.com/x7idRiC
