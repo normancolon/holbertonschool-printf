@@ -38,9 +38,6 @@ This project is an implementation of the `printf` standard function in C. The `p
 
 - Norman Colon Cruz
 
-### Flowchart
-
-[Flowchart of the _printf function](https://imgur.com/x7idRiC)
 
 ### Example
 
