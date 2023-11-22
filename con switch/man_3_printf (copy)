@@ -1,0 +1,61 @@
+.PRINTF(3)                  Custom Library Functions                  .PRINTF(3)
+
+.NAME
+       _printf - Custom implementation of the printf function.
+
+.SYNOPSIS
+       #include "main.h"
+
+       int _printf(const char *format, ...);
+
+.DESCRIPTION
+       The _printf function is a custom implementation of the standard printf
+       function. It is designed to mimic the functionality of printf from the
+       standard library, providing formatted output conversion.
+
+       The function writes output to stdout, the standard output stream, 
+       formatting it according to the format string pointed to by 'format'.
+
+       The 'format' string can contain format specifiers, which are replaced
+       by the values specified in subsequent additional arguments and formatted
+       as requested.
+
+       Supported format specifiers:
+       %c: Prints a single character.
+       %s: Prints a string.
+       %d, %i: Prints a signed integer.
+       %o: Prints an unsigned integer in octal format.
+       %x, %X: Prints an unsigned integer in hexadecimal format (lowercase/uppercase).
+       %u: Prints an unsigned integer.
+       %p: Prints a pointer address.
+       %%: Prints a percent sign.
+
+.USAGE
+       int main() {
+           _printf("Character: %c\n", 'A');
+           _printf("String: %s\n", "Hello, World!");
+           _printf("Integer: %d\n", 123);
+           return 0;
+       }
+
+.RETURN VALUE
+       Returns the number of characters printed (excluding the null byte used
+       to end output to strings).
+
+.NOTES
+       The function does not currently support all standard format specifiers
+       and flags of the standard printf function. Future versions may extend
+       this functionality.
+
+       If memory allocation fails in helper functions (like inToString), the
+       function may not print the expected output.
+
+.SEE ALSO
+       printf(3), sprintf(3), fprintf(3)
+
+.AUTHOR
+ Norman Colon
+
+.CUSTOM LIBRARY FUNCTIONS
+
+
